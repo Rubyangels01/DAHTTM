@@ -1,10 +1,6 @@
 package poly.bean;
-
-import org.springframework.stereotype.Component;
-
-@Component
 public class MEAL {
-	int maMon;
+	int maMon,idLoai,idNd,soLuongTK;
 	String tenMon, hinhAnh,moTa;
 	public int getMaMon() {
 		return maMon;
@@ -40,5 +36,16 @@ public class MEAL {
 		this.hinhAnh = hinhAnh;
 		this.moTa = moTa;
 	}
+	public MEAL(int maMon, String tenMon, String hinhAnh, String moTa, int idLoai, int idNd, int soLuongTK) {
+		super();
+		this.maMon = maMon;
+		this.idLoai = idLoai;
+		this.idNd = idNd;
+		this.soLuongTK = soLuongTK;
+		this.tenMon = tenMon;
+		this.hinhAnh = hinhAnh;
+		this.moTa = moTa;
+	}
+	
 	
 }
