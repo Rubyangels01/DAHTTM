@@ -1,7 +1,11 @@
 package poly.controller;
 
 import java.sql.SQLException;
+
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,16 +15,45 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import poly.DAO.*;
+
 import poly.bean.USER;
+@RequestMapping("/users")
 @Controller
 public class Login_Controller {
 	
-	
-	@RequestMapping(value = "users/Login", method = RequestMethod.GET)
-	public String Home() {
-		return "users/Login";
-	}
-	@RequestMapping("users/checkLogin")
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String DangKy() {
+        return "users/Register";
+    }
+	 @RequestMapping(value = "/Login", method = RequestMethod.GET)
+	    public String home() {
+	        return "users/Login";
+	    }
+	 
+	 @RequestMapping("/signup")
+		public String register(HttpServletRequest request, Model model) throws SQLException
+		{
+		
+		 USER_DAO user_DAO = new USER_DAO();
+			 // Lấy dữ liệu từ người dùng nhập về
+			String username = request.getParameter("username");
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			String confirmPassword = request.getParameter("confirmPassword");	
+			String message = "Mật khẩu không khớp!";
+			if(!password.equals(confirmPassword))
+			{
+				 
+				model.addAttribute("error", true);
+				request.setAttribute("message", message);
+				return "users/Register";
+			}
+			USER user = new USER(username,email,password);
+			user_DAO.ADD_USERS(user);
+			return "users/Login";
+			
+		}
+	@RequestMapping("/checkLogin")
 	public String checkLogin(HttpServletRequest request,Model model) throws SQLException 
 	{
 		USER_DAO user_DAO = new USER_DAO();
@@ -50,86 +83,20 @@ public class Login_Controller {
 				           
 				            	if (user.getEmail().equals(username) && user.getPassword().equals(password)) 
 					            {
-					            	found = true;
-					            	
-//					            	if(kh.getAccountName().equals((gioHang.getKhachHang().getAccountName())))
-//					            			{
-//					            			listGioHang = (ListGioHang) session.getAttribute("dsGioHang");
-//					            			
-//					            			}
+					            	found = true;					            	
 					            			session.setAttribute("User", user);
 					            			
 					            	session.setAttribute("maUser", user.getMaUser());
 					            	session.setAttribute("email", user.getEmail());
 					            	session.setAttribute("nameuser", user.getTenUser());				            	
 					            	session.setAttribute("password", user.getPassword());
-//					            	ListSP listSP = new ListSP();
-//					    		    model.addAttribute("sanPhamList", listSP.getListSP());
 					            	return "users/Main";
 					                
 					                
 					            
 							}
 				        }
-				}
-//				else 
-//				{
-//					for(KhachHang kh:listKH)
-//					{
-//						
-//						
-//							 if (kh.getAccountName().equals(username) && kh.getPassword().equals(password)) 
-//							 {
-//					            	found = true;
-//					            	session.setAttribute("khachhang", kh);
-//					            	
-//					            	session.setAttribute("fullName", kh.getFullName());
-//					            	session.setAttribute("email", kh.getEmail());
-//					            	session.setAttribute("phone", kh.getPhone());
-//					            	session.setAttribute("accountName", kh.getAccountName());
-//					            	session.setAttribute("password", kh.getPassword());
-//					            	ListSP listSP = new ListSP();
-//					    		    model.addAttribute("sanPhamList", listSP.getListSP());
-//					            	return "users/Home";
-//						
-//						}
-//						
-//						 
-//						 for (KhachHang kc : list.getListKH2()) 
-//						 {
-//					           
-//					            	if (kc.getAccountName().equals(username) && kc.getPassword().equals(password)) 
-//						            {
-//						            	found = true;
-//						            	session.setAttribute("khachhang", kc); //lưu khách hàng vào session
-//						            	
-//						            	session.setAttribute("fullName", kc.getFullName());
-//						            	session.setAttribute("email", kc.getEmail());
-//						            	session.setAttribute("phone", kc.getPhone());
-//						            	session.setAttribute("accountName", kc.getAccountName());
-//						            	session.setAttribute("password", kc.getPassword());
-//						            	ListSP listSP = new ListSP();
-//						    		    model.addAttribute("sanPhamList", listSP.getListSP());
-//						            	return "users/Home";
-//						                
-//						                
-//						            
-//								}
-//					        }
-//				}
-//					
-//					
-//
-//			    }
-//			
-//		}
-//		  
-//       
-		
-	        	
-	       
-	    	
-	    	
+				}	        		       	    	    	
 	    
 	}
 		 request.setAttribute("message", message);
