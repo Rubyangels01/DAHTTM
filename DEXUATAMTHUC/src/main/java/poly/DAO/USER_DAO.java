@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import poly.bean.USER;
 
 
@@ -36,7 +35,15 @@ public class USER_DAO {
     }
 
 
-   
+	 public void ADD_USERS(USER user) throws SQLException {
+	        String query = "INSERT INTO USERS(TENND,EMAIL,PASSWORD) VALUES (?, ?,?)";
+	        try (PreparedStatement statement = connection.prepareStatement(query)) {
+	            statement.setString(1, user.getTenUser());
+	            statement.setString(2, user.getEmail());
+	            statement.setString(3, user.getPassword());	           
+	            statement.executeUpdate();
+	        }
+	    }  
 
 public ArrayList<USER> LISTUSER() throws SQLException {
    	ArrayList<USER> LIST_USERS = new ArrayList<>();
