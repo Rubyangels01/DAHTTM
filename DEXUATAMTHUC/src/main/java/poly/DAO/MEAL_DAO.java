@@ -74,6 +74,38 @@ public class MEAL_DAO {
 
 	        return LIST_FOOD;
 	    }
+	    
+	    public ArrayList<MEAL> getFamousFood(int action) throws SQLException {
+	        ArrayList<MEAL> LIST_FOOD = new ArrayList<>();
+	        
+	        // Thực hiện truy vấn để lấy tất cả các sản phẩm nước hoa nam từ database
+	        String query = "SELECT M.*, COUNT(DY.IDMON) AS LuotYeuThich\r\n"
+	        		+ "	        		FROM MONAN M\r\n"
+	        		+ "	        		LEFT JOIN DS_YEUTHICH DY ON M.IDMON = DY.IDMON AND DY.HanhDong = ? \r\n"
+	        		+ "	        		GROUP BY M.IDMON, M.TENMON, M.HINHANH, M.MOTA, M.IDLOAI, M.ID_ND, M.SOLUONGTIMKIEM\r\n"
+	        		+ "	        		ORDER BY LuotYeuThich DESC, M.SOLUONGTIMKIEM DESC;";
+	        try (PreparedStatement statement = connection.prepareStatement(query)) {
+	            statement.setInt(1, action);
+
+	            try (ResultSet resultSet = statement.executeQuery()) {
+	                // Duyệt qua các dòng kết quả trả về và tạo đối tượng MEAL từ mỗi dòng
+	                while (resultSet.next()) {
+	                    int maMon = resultSet.getInt("IDMON");
+	                    String tenMon = resultSet.getString("TENMON");
+	                    String hinhAnh = resultSet.getString("HINHANH");
+	                    String moTa = resultSet.getString("MOTA");
+	                    int idLoai = resultSet.getInt("IDLOAI");
+	                    int idND = resultSet.getInt("ID_ND");
+	                    int soLuongTK = resultSet.getInt("SOLUONGTIMKIEM");
+
+	                    MEAL meal = new MEAL(maMon, tenMon, hinhAnh, moTa, idLoai, idND, soLuongTK);
+	                    LIST_FOOD.add(meal);
+	                }
+	            }
+	        }
+
+	        return LIST_FOOD;
+	    }
 
 	    // hàm thêm một khách hàng vào cơ sở dữ liệu
 //	    public void addCustomer(KhachHang khachHang) throws SQLException {
