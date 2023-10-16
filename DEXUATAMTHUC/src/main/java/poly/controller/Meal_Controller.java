@@ -18,11 +18,17 @@ public class Meal_Controller {
 		return "users/Main";
 	}
 	@RequestMapping(value = "users/mainfood", method = RequestMethod.GET)
-	public String MainHomePage(Model model) throws SQLException {
+	public String Catogory(Model model) throws SQLException {
 		MEAL_DAO meal_dao = new MEAL_DAO();
 	    model.addAttribute("MainFood", meal_dao.getTypeFood(1));
 	    model.addAttribute("DessertFood",meal_dao.getTypeFood(2));
 	    model.addAttribute("BreakFast",meal_dao.getTypeFood(3));
 	    return "users/Category";
+	}
+	@RequestMapping(value = "users/famousfood", method = RequestMethod.GET)
+	public String List_Famous(Model model) throws SQLException {
+		MEAL_DAO meal_dao = new MEAL_DAO();
+	    model.addAttribute("famousfood",meal_dao.getFamousFood(1));
+	    return "users/Famous_List";
 	}
 }
