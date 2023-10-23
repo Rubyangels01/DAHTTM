@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -489,7 +490,7 @@ color: #fff
 						Danh Mục
 					  </a>
 					  <ul class="dropdown-menu" >
-						<li><a class="dropdown-item" href="notaccount/DanhMucMonAn.jsp">Danh Mục Món Ăn</a></li>
+						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/users/suggest.htm">Danh Mục Món Ăn</a></li>
 				<!--	<li><a class="dropdown-item" href="#">Gợi Ý Hôm Nay</a></li> 	-->
 						<li><a class="dropdown-item" href="notaccount/TimKiemMonAn.jsp">Tìm Kiếm Món Ăn</a></li>
 						<li><a class="dropdown-item" href="notaccount/mon_an_pho_bien.jsp">Món Ăn Phổ Biến</a></li>
@@ -556,84 +557,26 @@ color: #fff
             <div class="row">
                 
                     <h1 class="text-center">Các món được tìm kiếm nhiều nhất</h1>
-                    <div class="col-md-4">
-                        <div class="image-container">
-                            <div class="card">
-                                <img class="meal-image card-img" src="https://goeco.link/YpZGm" alt="Banner Image">
-                                <div class="Name-meal">
-                                    <h5>Bánh bao chiên</h5>
-                                    <div class="btn"></div>
-                                    <a href="notaccount/SuonXao.jsp"><button class="btn-view" type="button">Xem</button></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <c:forEach items="${famousfood}" var="MEAL">
+					<div class="col-md-4">
+						<div class="image-container">
+							<div class="card">
+								<img class="meal-image card-img" src="${MEAL.hinhAnh}"
+									alt="Banner Image">
+								<div class="Name-meal">
+									<h5>${MEAL.tenMon}</h5>
+									
+									<div class="btn"></div>
+									<a href="${pageContext.request.contextPath}/users/Infor_Meal${MEAL.maMon}.htm"><button class="btn-view" type="button">Xem</button></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 
-                    <div class="col-md-4">
-                        <div class="image-container">
-                            <div class="card">
-                                <img class="meal-image card-img" src="https://goeco.link/ZRylO" alt="Banner Image">
-                                <div class="Name-meal">
-                                    <h5>Sườn Xào Chua Ngọt</h5>
-                                    	
-                                    <div class="btn"></div>
-                                    <a href="notaccount/SuonXao.jsp"><button class="btn-view" type="button">Xem</button></a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="image-container">
-                            <div class="card">
-                                <img class="meal-image card-img" src="https://goeco.link/oAFzB" alt="Banner Image">
-                                <div class="Name-meal">
-                                    <h5>Gà Xào Sả Ớt</h5>
-                                    <div class="btn"></div>
-                                    <a href="notaccount/SuonXao.jsp"><button class="btn-view" type="button">Xem</button></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-<div class="col-md-4">
-                        <div class="image-container">
-                            <div class="card">
-                                <img class="meal-image card-img" src="https://goeco.link/YpZGm" alt="Banner Image">
-                                <div class="Name-meal">
-                                    <h5>Bánh bao chiên</h5>
-                                    <div class="btn"></div>
-                                <a href="notaccount/SuonXao.jsp"><button class="btn-view" type="button">Xem</button></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     
-                        <div class="col-md-4">
-                            <div class="image-container">
-                                <div class="card">
-                                    <img class="meal-image card-img" src="https://goeco.link/ZRylO" alt="Banner Image">
-                                    <div class="Name-meal">
-                                        <h5>Sườn Xào Chua Ngọt</h5>
-                                        <div class="btn"></div>
-                                        <a href= "notaccount/SuonXao.jsp"><button class="btn-view" type="button">Xem</button></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <div class="image-container">
-                                <div class="card">
-                                    <img class="meal-image card-img" src="https://goeco.link/oAFzB" alt="Banner Image">
-                                    <div class="Name-meal">
-                                        <h5>Gà Xào Sả Ớt</h5>
-                                        <div class="btn"></div>
-                                        <a href="notaccount/SuonXao.jsp"><button class="btn-view" type="button">Xem</button></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     
                     
                 
