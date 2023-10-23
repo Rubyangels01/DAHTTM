@@ -1,6 +1,6 @@
 package poly.bean;
 public class MEAL {
-	int maMon,idLoai,idNd,soLuongTK;
+	int maMon,idLoai,idND,idCongThuc;
 	String tenMon, hinhAnh,moTa;
 	public int getMaMon() {
 		return maMon;
@@ -29,23 +29,29 @@ public class MEAL {
 	public MEAL() {
 		super();
 	}
-	public MEAL(int maMon, String tenMon, String hinhAnh, String moTa) {
-		super();
-		this.maMon = maMon;
-		this.tenMon = tenMon;
-		this.hinhAnh = hinhAnh;
-		this.moTa = moTa;
+	
+	public int getIdLoai() {
+		return idLoai;
 	}
-	public MEAL(int maMon, String tenMon, String hinhAnh, String moTa, int idLoai, int idNd, int soLuongTK) {
+	public void setIdLoai(int idLoai) {
+		this.idLoai = idLoai;
+	}
+	public MEAL(int maMon, int idLoai, int idND, int idCongThuc, String tenMon, String hinhAnh, String moTa) {
 		super();
 		this.maMon = maMon;
 		this.idLoai = idLoai;
-		this.idNd = idNd;
-		this.soLuongTK = soLuongTK;
+		this.idND = idND;
+		this.idCongThuc = idCongThuc;
 		this.tenMon = tenMon;
 		this.hinhAnh = hinhAnh;
 		this.moTa = moTa;
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 }
