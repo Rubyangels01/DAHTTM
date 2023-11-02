@@ -14,8 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import poly.DAO.*;
 
+import com.google.gson.Gson;
+
+import poly.DAO.*;
+import poly.bean.NGUYENLIEU;
 import poly.bean.USER;
 @RequestMapping("/users")
 @Controller
@@ -25,11 +28,15 @@ public class Login_Controller {
     public String DangKy() {
         return "users/Register";
     }
+	
 	 @RequestMapping(value = "/Login", method = RequestMethod.GET)
-	    public String home() {
+	    public String Login() {
 	        return "users/Login";
 	    }
-	 
+	 @RequestMapping(value = "/acountuser", method = RequestMethod.GET)
+	    public String Acount() {
+	        return "users/Acount_User";
+	    }
 	 @RequestMapping("/signup")
 		public String register(HttpServletRequest request, Model model) throws SQLException
 		{
@@ -90,6 +97,18 @@ public class Login_Controller {
 					            	session.setAttribute("email", user.getEmail());
 					            	session.setAttribute("nameuser", user.getTenUser());				            	
 					            	session.setAttribute("password", user.getPassword());
+					            	request.setAttribute("tenND", user.getTenUser());
+					            	MEAL_DAO meal_dao = new MEAL_DAO();
+					            	
+					            	
+
+					                // Đưa danh sách nguyên liệu và chuỗi JSON vào model
+//					            	ArrayList<NGUYENLIEU> nguyenLieuList = meal_dao.GET_INGREDIENT();
+//					                
+					              
+					            	model.addAttribute("nguyenlieuList",meal_dao.GET_INGREDIENT());
+					            	
+					        	    model.addAttribute("famousfood",meal_dao.GET_FAMOUSFOOD());
 					            	return "users/Main";
 					                
 					                
